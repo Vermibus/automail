@@ -3,7 +3,9 @@ import certifi
 import urllib3
 import re
 
-class Parser():
+from parsers import parser
+
+class Parser(parser.ParserAbstractClass):
 
   def __init__(self):
     self.url = 'https://www.x-kom.pl/'
@@ -37,14 +39,3 @@ class Parser():
     
     self.item_image = item_soup.find('a', class_="prettyphoto-fullscreen-item").find('img')
     self.item_specification = item_soup.find_all('table')[1]
-
-  def getVariables(self):
-    return {
-      'item_name':self.item_name,
-      'old_price':self.old_price,
-      'new_price':self.new_price,
-      'dif_price':self.old_price-self.new_price,
-      'item_link':self.item_link,
-      'item_image':self.item_image,
-      'item_specification':self.item_specification,
-    }
