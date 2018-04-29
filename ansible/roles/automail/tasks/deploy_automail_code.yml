@@ -1,0 +1,8 @@
+- name: Deploy code
+  copy: 
+    src: "../../../code/"
+    dest: "/var/spool/mail/automail"
+    owner: mail 
+    group: mail 
+    mode: 660
+    setype: mail_spool_t

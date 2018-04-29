@@ -1,0 +1,12 @@
+- name: Install mutt 
+  yum:
+    name: mutt 
+    state: present 
+
+- name: Configure mutt for mail user
+  template: 
+    src: muttrc.j2
+    dest: /var/spool/mail/.muttrc
+    owner: mail
+    group: mail 
+    setype: mail_spool_t
