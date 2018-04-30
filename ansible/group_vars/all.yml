@@ -1,0 +1,11 @@
+gmail_name: ''
+gmail_username: ''
+gmail_password: ''
+
+parsers:
+  - name: HotShot
+    emails: ""
+  - name: AlShot
+    emails: ""
+  - name: Morele
+    emails: ""

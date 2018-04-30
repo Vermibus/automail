@@ -1,0 +1,2 @@
+[all]
+automail ansible_ssh_host= ansible_user=centos
