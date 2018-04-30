@@ -11,6 +11,13 @@ class ParserAbstractClass():
   def parse(self):
     raise NotImplementedError
 
+  def getId(self):
+    if self.item_name:
+        return hash(self.item_name)**2
+    else:
+        print('Run parser.parse() first!')
+        raise NotImplementedError
+
   def getVariables(self):
     return {
       'item_name':self.item_name,
