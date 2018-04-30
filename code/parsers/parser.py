@@ -13,10 +13,10 @@ class ParserAbstractClass():
 
   def getId(self):
     if self.item_name:
-        return hash(self.item_name)**2
+      return sum( [ord(char)**i for i,char in enumerate(self.item_name)] )
     else:
-        print('Run parser.parse() first!')
-        raise NotImplementedError
+      print('Run parser.parse() first!')
+      raise NotImplementedError
 
   def getVariables(self):
     return {
