@@ -1,0 +1,26 @@
+- name: Install epel
+  yum:
+    name: "epel-release"
+    state: present
+
+- name: Install cyrus-sasl-plain
+  yum:
+    name: "cyrus-sasl-plain"
+    state: present
+
+- name: Install python36
+  yum:
+    name: "python36"
+    state: present
+
+- name: Get pip installation script
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    dest: /tmp/get_pip.py
+
+- name: Install pip for python36
+  shell: "python36 /tmp/get_pip.py"
+
+- name: Install required pip packages
+  shell: "python36 -m pip install -r /var/spool/mail/automail/requirements.txt"
+  changed_when: False

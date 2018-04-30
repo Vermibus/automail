@@ -1,2 +1,4 @@
 - import_tasks: install_mutt.yml
 - import_tasks: deploy_automail_code.yml
+- import_tasks: install_dependencies.yml
+- import_tasks: configure_automail.yml
