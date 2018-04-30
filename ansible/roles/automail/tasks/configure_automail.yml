@@ -1,0 +1,14 @@
+- name: Add cron jobs
+  cron:
+    name: "{{ item.name }}"
+    state: present
+    minute: "*/10"
+    user: mail
+    job: "/usr/bin/python36 /var/spool/mail/automail/automail.py {{ item.name }} {{ item.emails }}"
+  with_items: "{{ parsers }}"
+
+- name: Restart&enable crond
+  systemd:
+    name: crond
+    state: restarted
+    enabled: yes
