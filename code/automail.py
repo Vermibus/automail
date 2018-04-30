@@ -9,6 +9,17 @@ EMAILS = sys.argv[2:]
 parser = getattr(__import__('parsers', globals(), locals(), [TAG.lower()], 0), TAG.lower()).Parser()
 parser.parse()
 
+# check if this item was alread processed
+tmp_file = '/tmp/{tag}'.format(tag=TAG)
+if os.path.exists(tmp_file):
+  with open(tmp_file, 'r') as file:
+    stored_id = file.readline().strip()
+    if stored_id == str(parser.getId()):
+      sys.exit(0)
+
+with open(tmp_file, 'w') as file:
+  file.write(str(parser.getId()))
+
 mail_variables = parser.getVariables()
 
 # File with raw css&html content of mail
