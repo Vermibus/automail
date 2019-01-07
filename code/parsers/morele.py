@@ -22,33 +22,32 @@ class Parser(parser.ParserAbstractClass):
     soup = BeautifulSoup(response.data, 'html.parser')
     
     #item_name
-    self.item_name = soup.find('div', class_='product-name').find('a').string.strip()
+    self.item_name = soup.find('div', class_='promo-box-name').find('a').string.strip()
 
     #old_price, new_price
-    prices = soup.find('div', class_='product-price').find_all('span')
-    self.old_price = float( re.search('(\d+\.*\d*)', prices[0].string).groups(0)[0])
-    self.new_price = float( re.search('(\d+\.*\d*)', prices[1].string).groups(0)[0])
+    self.old_price = float( re.search('(\d+\.*\d*)', soup.find('div', class_='promo-box-old-price').string).groups(0)[0])
+    self.new_price = float( re.search('(\d+\.*\d*)', soup.find('div', class_='promo-box-new-price').string).groups(0)[0])
 
     #item_link
-    self.item_link = soup.find('div', class_='product-name').find('a')['href']
+    self.item_link = soup.find('div', class_='promo-box-name').find('a')['href']
 
     #item_specification & item_image
     item_response = https.request('GET', self.item_link)
     item_soup = BeautifulSoup(item_response.data, 'html.parser')
 
-    self.item_image = item_soup.find('div', class_='big-image').find('img')
+    self.item_image = item_soup.find('img', class_='lazy')
     self.item_image['src'] = self.item_image['data-cfsrc']
     for attr in ['height', 'width', 'style', 'data-cfsrc']:
       del self.item_image[attr]
 
-    tmp_item_specification = item_soup.find('div', class_=['technical-specification'])
+    tmp_item_specification = item_soup.find('div', class_='specification-table')
     self.item_specification  = ''
 
     for tag in tmp_item_specification.find_all(['div', *['h'+ str(x) for x in range(1,8)]], recursive=False):
       if tag.name == 'div':
         # table with specification group
         self.item_specification  += '<table>'
-        for row in tag.find_all('div', class_='row', recursive=False):
+        for row in tag.find_all('div', class_='table-info-item', recursive=False):
           name = row.find('div', class_='name').get_text(strip=True)
           value = row.find('div', class_='info-item').get_text(strip=True)
           self.item_specification  += '<tr><td>{name}</td><td>{value}</td></tr>'.format(name=name, value=value)
