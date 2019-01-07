@@ -15,7 +15,7 @@
 
 - name: Get pip installation script
   get_url:
-    url: https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    url: https://bootstrap.pypa.io/get-pip.py
     dest: /tmp/get_pip.py
 
 - name: Install pip for python36
