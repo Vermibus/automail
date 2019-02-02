@@ -20,13 +20,13 @@ class Parser(parser.ParserAbstractClass):
     )
     response = https.request('GET', self.url)
     soup = BeautifulSoup(response.data, 'html.parser')
-    
+
     #item_name
     self.item_name = soup.find('div', class_='promo-box-name').find('a').string.strip()
 
     #old_price, new_price
-    self.old_price = float( re.search('(\d+\.*\d*)', soup.find('div', class_='promo-box-old-price').string).groups(0)[0])
-    self.new_price = float( re.search('(\d+\.*\d*)', soup.find('div', class_='promo-box-new-price').string).groups(0)[0])
+    self.old_price = float( re.search('([\d\.]+\s*[\d\.]+)', soup.find('div', class_='promo-box-old-price').string.replace(' ','')).groups(0)[0])
+    self.new_price = float( re.search('([\d\.]+\s*[\d\.]+)', soup.find('div', class_='promo-box-new-price').string.replace(' ','')).groups(0)[0])
 
     #item_link
     self.item_link = soup.find('div', class_='promo-box-name').find('a')['href']
