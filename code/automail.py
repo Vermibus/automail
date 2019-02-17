@@ -36,6 +36,6 @@ command = "mutt -e 'set content_type=text/html' {subject} {receivers} < {mail_co
   subject = subject,
   receivers = receivers,
   mail_content = mail_content,
-)
+).encode('utf-8')
 
 os.system(command)

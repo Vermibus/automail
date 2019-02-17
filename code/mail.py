@@ -1,6 +1,6 @@
 import tempfile
 
-mail_content = tempfile.NamedTemporaryFile(mode='w')
+mail_content = tempfile.NamedTemporaryFile(mode='wb')
 mail = """
 <html>
 <head>
@@ -53,16 +53,16 @@ mail = """
 """
 
 def format(*, item_name, old_price, new_price, dif_price, item_link, item_image, item_specification):
-  mail_content.write( 
+  mail_content.write(
     mail.format(
       item_name = item_name,
       old_price = old_price,
       new_price = new_price,
       dif_price = dif_price,
       item_link = item_link,
-      item_image = item_image, 
+      item_image = item_image,
       item_specification = item_specification,
-    ).replace('[','{').replace(']','}')
+    ).replace('[','{').replace(']','}').encode('utf-8')
   )
   mail_content.seek(0)
   return mail_content.name
