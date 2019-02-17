@@ -1,0 +1,11 @@
+GMAIL_NAME: 'MailAuthor'
+GMAIL_USERNAME: 'gmailUsername'
+GMAIL_PASSWORD: 'gmailPassword'
+
+parsers:
+  - name: HotShot
+    emails: "test@test.com"
+  - name: AlShot
+    emails: "test@test.com"
+  - name: Morele
+    emails: "test@test.com"
